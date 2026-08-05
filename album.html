@@ -115,7 +115,7 @@
 <body>
     <!-- 顶部导航 -->
     <div class="navbar">
-        <button class="back-btn" onclick="location.href='index.html'">← 返回</button>
+        <button class="back-btn" onclick="location.href='index.html'">← 返回首页</button>
         <h2>我的相册</h2>
     </div>
 
@@ -131,14 +131,13 @@
     </div>
 
     <script>
-        // ========== 配置项：改成你自己的仓库信息 ==========
+        // 已根据你的仓库信息填好配置
         const config = {
-            username: 'zengfucai',   // 你的 GitHub 用户名
-            repo: 'Photo-Album',    // 图片所在的仓库名
-            branch: 'main',          // 分支名，一般是 main 或 master
-            imgDir: 'image'          // 图片存放的文件夹名
+            username: 'zengfucai',
+            repo: 'Photo-Album',
+            branch: 'main',
+            imgDir: 'images'
         };
-        // ==================================================
 
         const photoGrid = document.getElementById('photoGrid');
         const loading = document.getElementById('loading');
