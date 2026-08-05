@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .header {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 50px;
+        }
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        .header p {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+        .func-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 20px;
+        }
+        .func-card {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 30px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .func-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .func-icon {
+            font-size: 40px;
+            margin-bottom: 12px;
+        }
+        .func-name {
+            font-size: 15px;
+            color: #333;
+            font-weight: 500;
+        }
+        .footer {
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>我的个人空间</h1>
+            <p>欢迎来到你的专属主页</p>
+        </div>
+
+        <div class="func-grid">
+            <!-- 相册入口：点击跳转到相册页 -->
+            <div class="func-card" onclick="location.href='album.html'">
+                <div class="func-icon">🖼️</div>
+                <div class="func-name">我的相册</div>
+            </div>
+
+            <!-- 以下是占位功能，可自行扩展 -->
+            <div class="func-card" onclick="alert('功能开发中...')">
+                <div class="func-icon">👤</div>
+                <div class="func-name">个人资料</div>
+            </div>
+            <div class="func-card" onclick="alert('功能开发中...')">
+                <div class="func-icon">📝</div>
+                <div class="func-name">备忘录</div>
+            </div>
+            <div class="func-card" onclick="alert('功能开发中...')">
+                <div class="func-icon">⚙️</div>
+                <div class="func-name">设置</div>
+            </div>
+            <div class="func-card" onclick="alert('功能开发中...')">
+                <div class="func-icon">🎵</div>
+                <div class="func-name">音乐盒</div>
+            </div>
+            <div class="func-card" onclick="alert('功能开发中...')">
+                <div class="func-icon">📅</div>
+                <div class="func-name">日程表</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Powered by GitHub Pages
+        </div>
+    </div>
+</body>
+</html>

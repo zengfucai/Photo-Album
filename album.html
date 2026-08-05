@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的相册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding-bottom: 30px;
+        }
+        /* 顶部导航栏 */
+        .navbar {
+            background: #fff;
+            padding: 15px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #f0f0f0;
+        }
+        .navbar h2 {
+            font-size: 18px;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: #999;
+        }
+        /* 图片网格 */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .photo-item {
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+            aspect-ratio: 1;
+        }
+        .photo-item:hover {
+            transform: scale(1.03);
+        }
+        .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        /* 大图预览遮罩 */
+        .preview-mask {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .preview-mask.active {
+            display: flex;
+        }
+        .preview-mask img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 4px;
+        }
+        .close-preview {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="navbar">
+        <button class="back-btn" onclick="location.href='index.html'">← 返回</button>
+        <h2>我的相册</h2>
+    </div>
+
+    <div class="container">
+        <div class="loading" id="loading">加载中...</div>
+        <div class="photo-grid" id="photoGrid"></div>
+    </div>
+
+    <!-- 大图预览 -->
+    <div class="preview-mask" id="previewMask" onclick="closePreview()">
+        <button class="close-preview">×</button>
+        <img id="previewImg" src="" alt="预览图">
+    </div>
+
+    <script>
+        // ========== 配置项：改成你自己的仓库信息 ==========
+        const config = {
+            username: 'zengfucai',   // 你的 GitHub 用户名
+            repo: 'image-manage',    // 图片所在的仓库名
+            branch: 'main',          // 分支名，一般是 main 或 master
+            imgDir: 'image'          // 图片存放的文件夹名
+        };
+        // ==================================================
+
+        const photoGrid = document.getElementById('photoGrid');
+        const loading = document.getElementById('loading');
+        const previewMask = document.getElementById('previewMask');
+        const previewImg = document.getElementById('previewImg');
+
+        // 调用 GitHub API 获取图片列表
+        async function loadPhotos() {
+            try {
+                const apiUrl = `https://api.github.com/repos/${config.username}/${config.repo}/contents/${config.imgDir}?ref=${config.branch}`;
+                const res = await fetch(apiUrl);
+                
+                if (!res.ok) {
+                    throw new Error('获取图片失败，请检查仓库配置');
+                }
+
+                const fileList = await res.json();
+                // 过滤出图片文件
+                const imgList = fileList.filter(item => 
+                    item.type === 'file' && 
+                    /\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i.test(item.name)
+                );
+
+                loading.style.display = 'none';
+                
+                if (imgList.length === 0) {
+                    photoGrid.innerHTML = '<div class="loading">相册里还没有图片~</div>';
+                    return;
+                }
+
+                // 渲染图片
+                photoGrid.innerHTML = imgList.map(item => {
+                    const imgUrl = item.download_url;
+                    return `
+                        <div class="photo-item" onclick="openPreview('${imgUrl}')">
+                            <img src="${imgUrl}" alt="${item.name}" loading="lazy">
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (err) {
+                loading.textContent = err.message;
+            }
+        }
+
+        // 打开大图预览
+        function openPreview(url) {
+            previewImg.src = url;
+            previewMask.classList.add('active');
+        }
+
+        // 关闭预览
+        function closePreview() {
+            previewMask.classList.remove('active');
+        }
+
+        // 页面加载完成后执行
+        window.onload = loadPhotos;
+    </script>
+</body>
+</html>
