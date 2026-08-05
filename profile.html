@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人资料</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        body {
+            background-color: #f5f7fa;
+            padding-bottom: 40px;
+        }
+
+        /* 顶部导航栏 */
+        .navbar {
+            background: #fff;
+            padding: 15px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+        .back-btn:hover {
+            background: #f0f0f0;
+        }
+        .navbar h2 {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        /* 右上角小头像，类似简历头像 */
+        .resume-avatar {
+            position: absolute;
+            top: 30px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 3px solid #fff;
+            background: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .resume-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 个人头部卡片 */
+        .profile-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 16px;
+            padding: 40px 20px 30px;
+            text-align: center;
+            color: #fff;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid rgba(255,255,255,0.3);
+            background: #fff;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .nickname {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .signature {
+            font-size: 14px;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        /* 数据统计栏 */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px 10px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .stat-num {
+            font-size: 22px;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #999;
+        }
+
+        /* 通用卡片 */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        /* 基本信息列表 */
+        .info-list {
+            list-style: none;
+        }
+
+        .info-list li {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .info-list li:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            width: 80px;
+            color: #999;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            color: #333;
+            flex: 1;
+        }
+
+        /* 个人简介 */
+        .intro-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* 兴趣标签 */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            padding: 6px 14px;
+            background: #f0f3ff;
+            color: #667eea;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        /* 移动端适配：小头像稍微缩小，避免遮挡 */
+        @media (max-width: 480px) {
+            .resume-avatar {
+                width: 42px;
+                height: 42px;
+                top: 28px;
+                right: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <div class="navbar">
+        <button class="back-btn" onclick="location.href='index.html'">← 返回首页</button>
+        <h2>个人资料</h2>
+    </div>
+
+    <div class="container">
+        <!-- 右上角简历风格小头像 -->
+        <div class="resume-avatar">
+            <img src="https://raw.githubusercontent.com/zengfucai/Photo-Album/main/images/1785925084566_d7d76b81fd07fb1edf4235654b8f1372.jpg" alt="头像">
+        </div>
+
+        <!-- 头部信息 -->
+        <div class="profile-header">
+            <div class="avatar">🧑‍💻</div>
+            <div class="nickname">曾先生</div>
+            <div class="signature">认真生活，记录日常点滴 | 技术爱好者</div>
+        </div>
+
+        <!-- 数据统计 -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-num" id="photoCount">0</div>
+                <div class="stat-label">相册照片</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">1</div>
+                <div class="stat-label">入驻天数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-num">6</div>
+                <div class="stat-label">功能模块</div>
+            </div>
+        </div>
+
+        <!-- 基本信息 -->
+        <div class="card">
+            <div class="card-title">基本信息</div>
+            <ul class="info-list">
+                <li>
+                    <span class="info-label">昵称</span>
+                    <span class="info-value">曾总</span>
+                </li>
+                <li>
+                    <span class="info-label">城市</span>
+                    <span class="info-value">中国 · 广东</span>
+                </li>
+                <li>
+                    <span class="info-label">职业</span>
+                    <span class="info-value">技术开发 / 互联网</span>
+                </li>
+                <li>
+                    <span class="info-label">爱好</span>
+                    <span class="info-value">拍照、折腾代码、听歌</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 个人简介 -->
+        <div class="card">
+            <div class="card-title">个人简介</div>
+            <p class="intro-text">
+                一个喜欢折腾的普通人，平时爱用代码做点小工具，用照片记录生活里的细碎美好。
+                相信慢一点也没关系，把平凡的日子过成自己喜欢的样子就好。
+                这里是我的个人小站，存放照片和日常想法，欢迎光临。
+            </p>
+        </div>
+
+        <!-- 兴趣标签 -->
+        <div class="card">
+            <div class="card-title">兴趣标签</div>
+            <div class="tags">
+                <span class="tag">编程开发</span>
+                <span class="tag">摄影记录</span>
+                <span class="tag">数码科技</span>
+                <span class="tag">轻音乐</span>
+                <span class="tag">生活日常</span>
+                <span class="tag">GitHub 爱好者</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 自动统计相册图片数量
+        async function countPhotos() {
+            try {
+                const res = await fetch('https://api.github.com/repos/zengfucai/Photo-Album/contents/images?ref=main');
+                if (res.ok) {
+                    const data = await res.json();
+                    const imgCount = data.filter(item => 
+                        item.type === 'file' && /\.(jpg|jpeg|png|gif|webp)$/i.test(item.name)
+                    ).length;
+                    document.getElementById('photoCount').textContent = imgCount;
+                }
+            } catch(e) {}
+        }
+        countPhotos();
+    </script>
+</body>
+</html>
