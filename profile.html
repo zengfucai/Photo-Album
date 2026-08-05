@@ -15,8 +15,7 @@
             background-color: #f5f7fa;
             padding-bottom: 40px;
         }
-
-        /* 顶部导航栏 */
+        /* 顶部导航栏 - 和相册页同款 */
         .navbar {
             background: #fff;
             padding: 15px 20px;
@@ -50,32 +49,9 @@
             max-width: 800px;
             margin: 0 auto;
             padding: 0 20px;
-            position: relative;
         }
 
-        /* 右上角小头像，类似简历头像 */
-        .resume-avatar {
-            position: absolute;
-            top: 30px;
-            right: 20px;
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            border: 3px solid #fff;
-            background: #fff;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            overflow: hidden;
-            z-index: 10;
-        }
-
-        .resume-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* 个人头部卡片 */
+        /* 个人头部卡片 - 沿用首页渐变配色 */
         .profile-header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             border-radius: 16px;
@@ -86,7 +62,6 @@
             margin-bottom: 20px;
             box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
         }
-
         .avatar {
             width: 100px;
             height: 100px;
@@ -99,13 +74,11 @@
             justify-content: center;
             font-size: 48px;
         }
-
         .nickname {
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 8px;
         }
-
         .signature {
             font-size: 14px;
             opacity: 0.9;
@@ -119,7 +92,6 @@
             gap: 15px;
             margin-bottom: 20px;
         }
-
         .stat-card {
             background: #fff;
             border-radius: 12px;
@@ -127,14 +99,12 @@
             text-align: center;
             box-shadow: 0 2px 6px rgba(0,0,0,0.06);
         }
-
         .stat-num {
             font-size: 22px;
             font-weight: bold;
             color: #667eea;
             margin-bottom: 5px;
         }
-
         .stat-label {
             font-size: 13px;
             color: #999;
@@ -148,7 +118,6 @@
             margin-bottom: 20px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.06);
         }
-
         .card-title {
             font-size: 16px;
             font-weight: bold;
@@ -162,24 +131,20 @@
         .info-list {
             list-style: none;
         }
-
         .info-list li {
             display: flex;
             padding: 10px 0;
             border-bottom: 1px solid #f0f0f0;
             font-size: 14px;
         }
-
         .info-list li:last-child {
             border-bottom: none;
         }
-
         .info-label {
             width: 80px;
             color: #999;
             flex-shrink: 0;
         }
-
         .info-value {
             color: #333;
             flex: 1;
@@ -198,23 +163,12 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-
         .tag {
             padding: 6px 14px;
             background: #f0f3ff;
             color: #667eea;
             border-radius: 20px;
             font-size: 13px;
-        }
-
-        /* 移动端适配：小头像稍微缩小，避免遮挡 */
-        @media (max-width: 480px) {
-            .resume-avatar {
-                width: 42px;
-                height: 42px;
-                top: 28px;
-                right: 10px;
-            }
         }
     </style>
 </head>
@@ -226,11 +180,6 @@
     </div>
 
     <div class="container">
-        <!-- 右上角简历风格小头像 -->
-        <div class="resume-avatar">
-            <img src="https://raw.githubusercontent.com/zengfucai/Photo-Album/main/images/1785925084566_d7d76b81fd07fb1edf4235654b8f1372.jpg" alt="头像">
-        </div>
-
         <!-- 头部信息 -->
         <div class="profile-header">
             <div class="avatar">🧑‍💻</div>
